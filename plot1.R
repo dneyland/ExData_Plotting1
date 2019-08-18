@@ -1,0 +1,8 @@
+library(lubridate)
+plot1 <- read.csv("household_power_consumption.txt",sep=";")
+plot1$DateTime <- strptime(paste(plot1$Date,plot1$Time,sep=" "),format="%d/%m/%Y %H:%M:%S")
+plot1 <- subset(plot1,year(plot1$DateTime)==2007&month(plot1$DateTime)==2&day(plot1$DateTime)<=2)
+plot1$Global_active_power <- as.numeric(as.character(plot1$Global_active_power))
+png(filename="plot1.png",width=480,height=480)
+hist(plot1$Global_active_power,col="red",xlab="Global Active Power (kilowatts)",main="Global Active Power",ylim=c(0,1200))
+dev.off()
